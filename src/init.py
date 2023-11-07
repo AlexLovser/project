@@ -1,4 +1,4 @@
-from src.utils import maximum
+from src.utils import maximum, bubbleSorting
 
 
 def init(n): # n is number of discs and towers
@@ -39,6 +39,20 @@ def verifDepl(P, p1, p2):
                     return True
                 
     return False
+
+
+
+
+def verifVictoire(P, n):
+    gauches = P[:-1]
+
+    if any(gauches):
+        return False
+    
+    to_sort = P[-1].copy()
+    bubbleSorting(to_sort, -1)
+
+    return to_sort == P[-1]
 
 
         

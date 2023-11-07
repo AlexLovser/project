@@ -1,4 +1,4 @@
-def maximum(array):
+def maximum(array: list):
     m = 0
 
     for i in array:
@@ -6,3 +6,18 @@ def maximum(array):
             m = i
 
     return m
+
+
+def bubbleSorting(array: list, order=1) -> None:
+    for _ in range(2 ** len(array)):
+        for i in range(len(array) - 1):
+            a = array[i]
+            b = array[i + 1]
+
+            if a > b:
+                array[i], array[i + 1] = array[i + 1], array[i]
+
+    if order == -1:
+        array.reverse()
+
+

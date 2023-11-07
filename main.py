@@ -1,31 +1,33 @@
-# from turtle import Turtle
+
 from copy import deepcopy
 
 from src.init import *
 from src.config import N
+from src.operations import moveDisque
 
-# turtle = Turtle()
 PLATEAU = init(N)
-
-print(PLATEAU)
-# print(nbDisques(PLATEAU, 0))
-# print(disqueSup(PLATEAU, 0))
-# print(posDisque(PLATEAU, 4))
+plateau = deepcopy(PLATEAU) # make a copy, not reference
 
 
+moveDisque(plateau, 0, 1)
+moveDisque(plateau, 0, 2)
+moveDisque(plateau, 0, 3)
+moveDisque(plateau, 0, 4)
 
-plateau = deepcopy(PLATEAU)
-
-
-
-
-def moveDisque(P, de, a):
-    plateau[a].append(plateau[de].pop())
-
+moveDisque(plateau, 1, 2)
+moveDisque(plateau, 4, 1)
+moveDisque(plateau, 0, 4)
+moveDisque(plateau, 1, 0)
 
 moveDisque(plateau, 0, 4)
-print(plateau)
-print(verifDepl(PLATEAU, PLATEAU, plateau))
+moveDisque(plateau, 3, 4)
+moveDisque(plateau, 2, 0)
+moveDisque(plateau, 2, 4)
+moveDisque(plateau, 0, 4)
 
+
+print(PLATEAU)
+print(plateau)
+print(verifVictoire(plateau, N))
 
 
