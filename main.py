@@ -1,2 +1,7 @@
-import turtle as trt
+from turtle import Turtle
 import numpy as np
+
+
+turtle = Turtle()
+
+
