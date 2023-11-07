@@ -1,3 +1,3 @@
 # FILE WITH CONSTANTS
 
-
+N = 5
