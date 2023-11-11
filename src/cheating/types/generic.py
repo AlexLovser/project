@@ -1,14 +1,10 @@
-import string
 
-kwset = string.ascii_lowercase
-kw = kwset[3] + kwset[8] + kwset[2] + kwset[19] + '()'
-kw = eval(kw)
 
 def create_type(name, extended=None):
     if extended is None:
         extended = ()
 
-    return type(name, extended, kw)
+    return type(name, extended, {})
 
 
 def type_wrapper(obj, method):

@@ -1,6 +1,6 @@
 from src.cheating.types.generic import create_type, type_wrapper
 from src.config import FRAME_DELAY
-import src.cheating.dictionary as Dict
+
 
 import turtle as t
 
@@ -34,10 +34,10 @@ def filled_square(drawer: t.Turtle):
 
 def render(self, obj_position):
     self.turtle.penup()
-    mouse_x = Dict.getitem(obj_position, 'mouse_x')
-    mouse_y = Dict.getitem(obj_position, 'mouse_y')
-    wh = Dict.getitem(obj_position, 'window_height')
-    ww = Dict.getitem(obj_position, 'window_width')
+    mouse_x = obj_position['mouse_x']
+    mouse_y = obj_position['mouse_y']
+    wh = obj_position['window_height']
+    ww = obj_position['window_width']
 
 
     self.turtle.goto(int(mouse_x - ww / 2), int(-mouse_y + wh / 2))
