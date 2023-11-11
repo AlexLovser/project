@@ -8,7 +8,6 @@ from src.operations import moveDisque
 from src.cheating.types.render_manager import RenderManager
 from src.cheating.types.event_manager import EventManager
 
-import src.cheating.dictionary as Dict
 from src.config import *
 
 
@@ -42,14 +41,13 @@ def run():
     w = RenderManager.window.window_width()
     h = RenderManager.window.window_height()
 
-    
-    context = Dict.dictionary([
-        ['mouse_x', 0], 
-        ['mouse_y', 0],
-        ['dragging', None],
-        ['window_height', h],
-        ['window_width', w],
-    ])
+    context = {
+        "mouse_x": 0,
+        "mouse_y": 0,
+        "dragging": None,
+        "window_height": w,
+        "window_height": h,
+    }
 
     RenderManager.is_interaction = True
     RenderManager.start_render(context)

@@ -1,5 +1,5 @@
 from .generic import create_type, type_wrapper
-import src.cheating.dictionary as Dict
+
 
 from src.utils import maximum, minimum
 from src.config import WINDOW_MARGIN
@@ -18,11 +18,11 @@ def on_mouse_move(self, event):
 
     y = maximum((WINDOW_MARGIN, y))
     y = minimum((h - WINDOW_MARGIN, y))
-
-    Dict.setitem(self.context, 'window_width', w)
-    Dict.setitem(self.context, 'window_height', h)
-    Dict.setitem(self.context, 'mouse_x', int(x))
-    Dict.setitem(self.context, 'mouse_y', int(y))
+    
+    self.context['window_width'] = w
+    self.context['window_height'] = h
+    self.context['mouse_x'] = int(x)
+    self.context['mouse_y'] = int(y)
 
 
 def on_mouse_click(self, event):
