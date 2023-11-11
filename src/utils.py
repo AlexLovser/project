@@ -9,7 +9,7 @@ def maximum(array: list):
 
 
 def bubbleSorting(array: list, order=1) -> None:
-    for _ in range(2 ** len(array)):
+    for _ in range(len(array) + 1):
         for i in range(len(array) - 1):
             a = array[i]
             b = array[i + 1]
@@ -19,5 +19,6 @@ def bubbleSorting(array: list, order=1) -> None:
 
     if order == -1:
         array.reverse()
+
 
 
