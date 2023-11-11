@@ -1,21 +1,16 @@
 from src.cheating.types.generic import create_type, type_wrapper
 from src.config import FRAME_DELAY
+import src.cheating.dictionary as Dict
 
-from time import sleep
 import turtle as t
-from threading import Thread
 
-turtle = t.Turtle()
+RenderManager = create_type('RenderManager')()
+RenderManager.turtle = t.Turtle()
+RenderManager.window = t.Screen()
 
-
-
-RenderManger = create_type('RenderManger')()
-RenderManger.turtle = t.Turtle()
-RenderManger.window = t.Screen()
-
-RenderManger.window.tracer(0, 0)
-RenderManger.window.bgcolor("white")
-RenderManger.window.title("Hanoi Towers")
+RenderManager.window.tracer(0, 0)
+RenderManager.window.bgcolor("white")
+RenderManager.window.title("Hanoi Towers")
 
 
 def square(drawer: t.Turtle):
@@ -39,24 +34,21 @@ def filled_square(drawer: t.Turtle):
 
 def render(self, obj_position):
     self.turtle.penup()
-    self.turtle.goto(obj_position)
+    self.turtle.goto(Dict.values(obj_position))
     filled_square(self.turtle)
 
 
 def start_render(self, *args, **kwargs):
-    def inner(*args, **kwargs):
-        while True:
-            if self.is_interaction:
-                sleep(FRAME_DELAY)
-                self.turtle.clear() # removing all previous traces
-                self.render_function(*args, **kwargs)
-                self.window.update() # updating to show the picture
-        
-        
-        
-    Thread(name='Render()', target=inner, args=args, kwargs=kwargs).start() # independent process of rendering
+    def inner():
+        if self.is_interaction:
+            self.turtle.clear() # removing all previous traces
+            self.render_function(*args, **kwargs)
+            self.window.update() # updating to show the picture
+        self.window.ontimer(inner, t=int(round(FRAME_DELAY * 1000)))
+
+    inner()
 
 
 
-RenderManger.render_function = type_wrapper(RenderManger, render)
-RenderManger.start_render = type_wrapper(RenderManger, start_render)
+RenderManager.render_function = type_wrapper(RenderManager, render)
+RenderManager.start_render = type_wrapper(RenderManager, start_render)
