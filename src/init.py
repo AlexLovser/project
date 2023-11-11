@@ -1,12 +1,10 @@
-from src.utils import maximum, bubbleSorting
+# from src.utils import maximum, bubbleSorting
 
 
 def init(n): # n is number of discs and towers
-    towers = []
+    towers = [[], [], []]
     for i in range(n):
-        towers.append([])
         towers[0].append(n-i)
-
     return towers
 
 
@@ -53,7 +51,3 @@ def verifVictoire(P, n):
     bubbleSorting(to_sort, -1)
 
     return to_sort == P[-1]
-
-
-        
-    
