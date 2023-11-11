@@ -34,17 +34,24 @@ def filled_square(drawer: t.Turtle):
 
 def render(self, obj_position):
     self.turtle.penup()
-    self.turtle.goto(Dict.values(obj_position))
+    mouse_x = Dict.getitem(obj_position, 'mouse_x')
+    mouse_y = Dict.getitem(obj_position, 'mouse_y')
+    wh = Dict.getitem(obj_position, 'window_height')
+    ww = Dict.getitem(obj_position, 'window_width')
+
+
+    self.turtle.goto(int(mouse_x - ww / 2), int(-mouse_y + wh / 2))
     filled_square(self.turtle)
 
 
 def start_render(self, *args, **kwargs):
+    delayms =int(round(FRAME_DELAY * 1000))
     def inner():
         if self.is_interaction:
             self.turtle.clear() # removing all previous traces
             self.render_function(*args, **kwargs)
             self.window.update() # updating to show the picture
-        self.window.ontimer(inner, t=int(round(FRAME_DELAY * 1000)))
+        self.window.ontimer(inner, t=delayms)
 
     inner()
 
@@ -52,3 +59,4 @@ def start_render(self, *args, **kwargs):
 
 RenderManager.render_function = type_wrapper(RenderManager, render)
 RenderManager.start_render = type_wrapper(RenderManager, start_render)
+

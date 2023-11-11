@@ -1,40 +1,66 @@
-import time
+
+from copy import deepcopy
+
+from src.init import *
+from src.config import N
+from src.operations import moveDisque
 
 from src.cheating.types.render_manager import RenderManager
+from src.cheating.types.event_manager import EventManager
 
 import src.cheating.dictionary as Dict
 from src.config import *
 
 
-RenderManager.is_interaction = True
+
+PLATEAU = init(N)
+plateau = deepcopy(PLATEAU) # make a copy, not reference
+
+
+# moveDisque(plateau, 0, 1)
+# moveDisque(plateau, 0, 2)
+# moveDisque(plateau, 0, 3)
+# moveDisque(plateau, 0, 4)
+
+# moveDisque(plateau, 1, 2)
+# moveDisque(plateau, 4, 1)
+# moveDisque(plateau, 0, 4)
+# moveDisque(plateau, 1, 0)
+
+# moveDisque(plateau, 0, 4)
+# moveDisque(plateau, 3, 4)
+# moveDisque(plateau, 2, 0)
+# moveDisque(plateau, 2, 4)
+# moveDisque(plateau, 0, 4)
+
+
+# print(PLATEAU)
+# print(plateau)
+# print(verifVictoire(plateau, N))
 
 def run():
-    details = Dict.dictionary([
-        ['x', -200 + 3], 
-        ['y', 100]
+    w = RenderManager.window.window_width()
+    h = RenderManager.window.window_height()
+
+    
+    context = Dict.dictionary([
+        ['mouse_x', 0], 
+        ['mouse_y', 0],
+        ['dragging', None],
+        ['window_height', h],
+        ['window_width', w],
     ])
-    RenderManager.start_render(details)
 
-    # iteration = 0
-    # def start_iteraction():
-    #     nonlocal iteration
-    #     if iteration < 1000:
-    #         # print("Process iteration #", iteration)
-    #         Dict.setitem(details, 'x', -300 + 3 * iteration)
-    #         iteration += 1
-    #         RenderManager.window.ontimer(start_iteraction, t=30)
+    RenderManager.is_interaction = True
+    RenderManager.start_render(context)
 
-    # start_iteraction()
+    EventManager.context = context
+    EventManager.window = RenderManager.window
 
-    def print_mouse_position(event):
-        x, y = event.x, event.y
-        w = RenderManager.window.window_width()
-        h = RenderManager.window.window_height()
-        Dict.setitem(details, 'x', x - int(w / 2))
-        Dict.setitem(details, 'y', -y + int(h / 2))
-        # print(f"Mouse position: x = {x}, y = {y}")
-
-    RenderManager.window.getcanvas().bind("<Motion>", print_mouse_position)
+    bind = EventManager.window.getcanvas().bind
+    bind("<Motion>", EventManager.on_mouse_move)
+    bind("<Button-1>", EventManager.on_mouse_click)
+    bind("<ButtonRelease-1>", EventManager.on_mouse_release)
 
 
     RenderManager.window.mainloop()
@@ -43,4 +69,6 @@ def run():
     
 if __name__ == '__main__':
     run()
+
+
 

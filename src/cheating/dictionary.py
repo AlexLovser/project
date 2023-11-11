@@ -13,7 +13,7 @@ def setitem(obj, name, value):
             i[1] = value
             return
     
-    raise KeyError('No such key: %s' % name)
+    obj().append([name, value])
 
 
 def contains(obj, name):

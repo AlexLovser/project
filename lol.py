@@ -1,27 +1,15 @@
-import turtle
-import random
+def on_mouse_move( x , y):
+    
+    w = 1000
+    h = 2000
 
-# global colors 
-col = ['red', 'yellow', 'green', 'blue',
-       'white', 'black', 'orange', 'pink']
+    x = max((0, x))
+    x = min((w, x))
 
+    y = max((0, y))
+    y = min((h, y))
 
-# method to call on timer
+    print(x, y)
 
+on_mouse_move(1001, 10000)
 
-# set screen 
-sc = turtle.Screen()
-sc.setup(400, 300)
-
-def fxn():
-    global col
-    ind = random.randint(0, 7)
-
-    # set background color of the
-    # turtle screen randomly
-    sc.bgcolor(col[ind])
-    sc.ontimer(fxn, 500)
-
-
-sc.mainloop()
-fxn()

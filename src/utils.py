@@ -1,8 +1,17 @@
 def maximum(array: list):
-    m = 0
+    m = array[0]
 
     for i in array:
         if i > m:
+            m = i
+
+    return m
+
+def minimum(array: list):
+    m = array[0]
+
+    for i in array:
+        if i < m:
             m = i
 
     return m
@@ -19,6 +28,5 @@ def bubbleSorting(array: list, order=1) -> None:
 
     if order == -1:
         array.reverse()
-
 
 
