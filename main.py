@@ -41,7 +41,7 @@ def run():
         "dragging": None,
         "window_width": RenderManager.window.window_width(),
         "window_height": RenderManager.window.window_height(),
-        'disk_number': N , # or more
+        'disk_number': N + 5 , # or more
         'disk_colors': {},
         'disk_colors_adjusted': {},
     }
