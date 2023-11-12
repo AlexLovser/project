@@ -11,7 +11,7 @@ RenderManager.window = t.Screen()
 RenderManager.turtle.hideturtle()
 
 RenderManager.window.tracer(0, 0)
-RenderManager.window.bgcolor("white")
+RenderManager.window.bgcolor("#222222")
 RenderManager.window.title("Hanoi Towers")
 
 
@@ -42,14 +42,14 @@ def render(self, context):
     # ww = obj_position['window_width']
     # self.turtle.goto(int(mouse_x - ww / 2), int(-mouse_y + wh / 2))
     # filled_square(self.turtle)
+    self.turtle.pencolor(BOARD_COLOR)
 
     drawBoard(self.turtle, context)
 
     for i in range(context['disk_number']):
-        color = context['disk_colors'][i + 1]
-        drawDisc(self.turtle, context, i + 1, context['board'], color)
+        drawDisc(self.turtle, context, i + 1, context['board'])
 
-    self.turtle.pencolor('#000')
+    self.turtle.pencolor(BOARD_COLOR)
 
 
 def start_render(self, *args, **kwargs):

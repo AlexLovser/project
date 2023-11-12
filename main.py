@@ -9,11 +9,8 @@ from src.cheating.types.render_manager import RenderManager
 from src.cheating.types.event_manager import EventManager
 
 from src.config import *
+from src.operations import generateDiskColor
 
-
-
-PLATEAU = init(N)
-plateau = deepcopy(PLATEAU) # make a copy, not reference
 
 
 # moveDisque(plateau, 0, 1)
@@ -38,20 +35,32 @@ plateau = deepcopy(PLATEAU) # make a copy, not reference
 # print(verifVictoire(plateau, N))
 
 def run():
-    
     context = {
-        "mouse_x": -200 + 3,
-        "mouse_y": 100,
-        "dragging": None,
         "mouse_x": 0,
+        "mouse_y": 0,
+        "dragging": None,
+        "window_width": RenderManager.window.window_width(),
+        "window_height": RenderManager.window.window_height(),
+        'disk_number': N + 2, # or more
+        'disk_colors': {},
+        
     }
+
+    context['board'] = init(context['disk_number'])
+
+    for i in range(context['disk_number']):
+        context['disk_colors'][i + 1] = generateDiskColor(context, i + 1)
 
     RenderManager.is_interaction = True
     RenderManager.start_render(context)
 
     EventManager.context = context
     EventManager.window = RenderManager.window
-    EventManager.window.getcanvas().bind("<Motion>", EventManager.on_mouse_move)
+
+    bind = EventManager.window.getcanvas().bind
+    bind("<Motion>", EventManager.on_mouse_move)
+    bind("<Button-1>", EventManager.on_mouse_click)
+    bind("<ButtonRelease-1>", EventManager.on_mouse_release)
 
 
     RenderManager.window.mainloop()

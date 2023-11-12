@@ -10,6 +10,8 @@ WINDOW_MARGIN = 30
 N = 3 # number of towels
 DISK_HEIGHT = 25 - int(N / 2)
 TOWER_WIDTH = 20
+BOARD_COLOR = '#454545'
+TOWER_COLOR = '#6E6E6E'
 
 
 
