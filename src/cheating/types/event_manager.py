@@ -45,7 +45,7 @@ def on_mouse_click(self, event):
 
             is_hovered = mouse_hovers_this_disk(self.context, disk_box)
 
-            if is_hovered:
+            if is_hovered and index == len(disks_on_a_tower) - 1: # is hovered and its the last disk
                 inner_x = mouse_x - disk_box[0]
                 inner_y = mouse_y - disk_box[1]
                 # print(inner_x, inner_y)

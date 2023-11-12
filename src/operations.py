@@ -146,7 +146,7 @@ def drawDisc(drawer, context, disk_number, board):
 
         is_hovered = mouse_hovers_this_disk(context, disk_box)
 
-        if is_hovered:
+        if is_hovered and context['board'][disk_position[0]][-1] == disk_number: # is hovered and its the last disk
             drawer.color(context['disk_colors_adjusted'][disk_number])
         else:
             drawer.color(context['disk_colors'][disk_number])
