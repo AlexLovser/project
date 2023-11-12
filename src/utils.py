@@ -30,3 +30,13 @@ def bubbleSorting(array: list, order=1) -> None:
         array.reverse()
 
 
+def loop_recursion_wrapper(func, ontimer_func, timeout, *args, **kwargs):
+    def inner():
+        func(*args, **kwargs)
+
+        ontimer_func(func, t=timeout)
+
+    return inner
+
+
+

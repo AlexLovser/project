@@ -61,16 +61,16 @@ def rgb_to_hex(r, g, b):
 
 def generateDiskColor(context, ndisk):
     coef = (ndisk - 1) / context['disk_number'] * len(RAINBOW)
-    start = int(coef)
-    end = min((len(RAINBOW) - 1, int(start + 1)))
+    start = coef
+    end = min((len(RAINBOW) - 1, start + 1))
     
-    start_color = RAINBOW[start]
-    end_color = RAINBOW[end]
+    start_color = RAINBOW[int(start)]
+    end_color = RAINBOW[int(end)]
 
     color = []
 
     for i in range(3):
-        color.append(int((start_color[i] + end_color[i]) / 2))
+        color.append(int(start_color[i] + (end_color[i] - start_color[i]) * (start - int(start))))
 
     return rgb_to_hex(*color)
 
