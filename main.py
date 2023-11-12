@@ -34,6 +34,7 @@ from src.operations import *
 # print(plateau)
 # print(verifVictoire(plateau, N))
 
+
 def run():
     context = {
         "mouse_x": 0,
@@ -44,6 +45,7 @@ def run():
         'disk_number': N + 5 , # or more
         'disk_colors': {},
         'disk_colors_adjusted': {},
+        
     }
 
     context['board'] = init(context['disk_number'])
@@ -53,7 +55,7 @@ def run():
         context['disk_colors_adjusted'][i + 1] = adjust_color_lighten(*hex_to_rgb(context['disk_colors'][i + 1]), 0.4)
         # context['disk_colors_adjusted'][i + 1] = '#000'
 
-    RenderManager.is_interaction = True
+
     RenderManager.start_render(context)
 
     EventManager.context = context

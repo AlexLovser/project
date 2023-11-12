@@ -1,6 +1,7 @@
 from src.cheating.types.generic import create_type, type_wrapper
 from src.config import *
 from src.operations import drawBoard, drawDisc
+import time
 
 
 import turtle as t
@@ -35,16 +36,24 @@ def filled_square(drawer: t.Turtle):
     
 
 def render(self, context):
-    # self.turtle.penup()
-    # mouse_x = obj_position['mouse_x']
-    # mouse_y = obj_position['mouse_y']
-    # wh = obj_position['window_height']
-    # ww = obj_position['window_width']
-    # self.turtle.goto(int(mouse_x - ww / 2), int(-mouse_y + wh / 2))
-    # filled_square(self.turtle)
     self.turtle.pencolor(BOARD_COLOR)
 
     drawBoard(self.turtle, context)
+
+    if context['is_victory']:
+        context['is_interaction'] = False
+
+        self.turtle.penup()
+        self.turtle.goto(0, 150)
+        self.turtle.pendown()
+        self.turtle.color("#008000")
+        self.turtle.write("VICTORY!!!",align="center", font=("ariel",48,"bold"))
+        time.sleep(3)
+        
+        context['is_interaction'] = True
+        context['is_victory'] = False
+
+        return
 
     for i in range(context['disk_number']):
         drawDisc(self.turtle, context, i + 1, context['board'])
@@ -55,7 +64,7 @@ def render(self, context):
 def start_render(self, *args, **kwargs):
     delayms =int(round(FRAME_DELAY * 1000))
     def inner():
-        if self.is_interaction:
+        if args[0]['is_interaction']:
             self.turtle.clear() # removing all previous traces
             self.render_function(*args, **kwargs)
             self.window.update() # updating to show the picture

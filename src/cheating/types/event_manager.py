@@ -59,13 +59,12 @@ def on_mouse_click(self, event):
             index += 1
 
 
-
 def on_mouse_release(self, event):
     dragged = self.context['dragging']
     if dragged:
-        mouse_x, mouse_y = event.x, event.y
-        mx = mouse_x - self.context['window_width'] / 2
-        my = -mouse_y + self.context['window_height'] / 2
+        # mouse_x, mouse_y = event.x, event.y
+        # mx = mouse_x - self.context['window_width'] / 2
+        # my = -mouse_y + self.context['window_height'] / 2
         
         tower = disk_is_in_a_towers_space(self.context)
 
@@ -77,7 +76,8 @@ def on_mouse_release(self, event):
                 victory = verifVictoire(self.context['board'], N)
                 
                 if victory:
-                    print('Its victory!!!!')
+                    self.context['is_victory'] = True
+                    play_sound('win')
                     self.context['board'] = init(self.context['disk_number'])
 
         

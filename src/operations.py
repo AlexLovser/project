@@ -1,9 +1,23 @@
 from src.config import *
 from src.init import posDisque
+from winsound import PlaySound, SND_ASYNC
+from os import path
+
+
+def play_sound(file_name):
+    file_path = path.join(path.dirname(__file__), f'sounds\\{file_name}.wav')
+    print(file_path)
+
+    try:
+        PlaySound(file_path, SND_ASYNC)
+    except Exception as e:
+        print(f"Error playing MP3: {e}")
 
 
 def moveDisque(P, de, a):
     P[a].append(P[de].pop())
+    play_sound('click')
+
 
 
 def towerBasePosition(context, tower_number):
