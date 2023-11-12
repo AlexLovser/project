@@ -1,4 +1,4 @@
-# from src.utils import maximum, bubbleSorting
+from src.utils import bubbleSorting
 
 
 def init(n): # n is number of discs and towers
@@ -15,15 +15,16 @@ def nbDisques(P, x):
 def disqueSup(P, x):
     y = P[x]
     if y:
-        return maximum(y)
+        return max(y)
     return -1
 
 
 def posDisque(P, d):
     for i in range(len(P)):
-        x = P[i]
-        if d in x:
-            return i
+        _X = P[i] # tower
+        for x in range(len(_X)):
+            if _X[x] == d:
+                return i, x
         
 
 def verifDepl(P, p1, p2):
@@ -37,8 +38,6 @@ def verifDepl(P, p1, p2):
                     return True
                 
     return False
-
-
 
 
 def verifVictoire(P, n):

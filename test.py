@@ -9,6 +9,7 @@ from src.cheating.types.render_manager import RenderManager
 from src.cheating.types.event_manager import EventManager
 
 from src.config import *
+from src.operations import generateDiskColor
 
 
 
@@ -38,16 +39,19 @@ plateau = deepcopy(PLATEAU) # make a copy, not reference
 # print(verifVictoire(plateau, N))
 
 def run():
-    w = RenderManager.window.window_width()
-    h = RenderManager.window.window_height()
-
     context = {
         "mouse_x": 0,
         "mouse_y": 0,
         "dragging": None,
-        "window_height": w,
-        "window_height": h,
+        "window_width": RenderManager.window.window_width(),
+        "window_height": RenderManager.window.window_height(),
+        'disk_number': N, # or more
+        'disk_colors': {},
+        'board': PLATEAU
     }
+
+    for i in range(context['disk_number']):
+        context['disk_colors'][i + 1] = generateDiskColor(context, i + 1)
 
     RenderManager.is_interaction = True
     RenderManager.start_render(context)

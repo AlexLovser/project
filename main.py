@@ -8,7 +8,6 @@ from src.operations import moveDisque
 from src.cheating.types.render_manager import RenderManager
 from src.cheating.types.event_manager import EventManager
 
-import src.cheating.dictionary as Dict
 from src.config import *
 
 
@@ -34,18 +33,18 @@ plateau = deepcopy(PLATEAU) # make a copy, not reference
 # moveDisque(plateau, 0, 4)
 
 
-print(PLATEAU)
-print(plateau)
-print(verifVictoire(plateau, N))
+# print(PLATEAU)
+# print(plateau)
+# print(verifVictoire(plateau, N))
 
 def run():
-    context = Dict.dictionary([
-        ['mouse_x', -200 + 3], 
-        ['mouse_y', 100],
-        ['dragging', None],
-        ['']
-
-    ])
+    
+    context = {
+        "mouse_x": -200 + 3,
+        "mouse_y": 100,
+        "dragging": None,
+        "mouse_x": 0,
+    }
 
     RenderManager.is_interaction = True
     RenderManager.start_render(context)
