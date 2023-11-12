@@ -75,7 +75,48 @@ def drawDisc(nd, board, n):
     turtle.update()
     disc_turtle.hideturtle()
 
-n=5
+def eraseDisc(nd, board, n):
+    eraseTurtle = turtle.Turtle()
+    eraseTurtle.speed(0)
+    eraseTurtle.pencolor("#8da11d")
+    eraseTurtle.penup()
+    eraseTurtle.pensize(20)
+    tower_number = posDisque(board, nd)
+    tower_height = nbDisques(board, tower_number)
+    disc_size = n  + 1 
+    x = (-400) + (n*12 ) + ((n-1) * 43) * 0# the final number is the tower number - 1
+    y = -133 - nd * 21 + 20 * tower_height
+    eraseTurtle.goto(x , y)
+    eraseTurtle.pendown()
+    eraseTurtle.forward(disc_size)
+    eraseTurtle.forward(n * 10)
+    eraseTurtle.forward(-2 * n * 10)
+
+    eraseTurtle.penup() 
+    eraseTurtle.hideturtle()
+    turtle.update()
+
+def drawConfig(board, n):
+    
+    tower_number = posDisque(board, n)
+    tower_height = nbDisques(board, tower_number)
+    turtle.update()
+    drawBoard(n)
+
+
+def resetConfig(board, n):
+    tower_number = posDisque(board, n)
+    tower_height = nbDisques(board, tower_number)
+    for i in range(1,n+1):
+        eraseDisc(i,board,n)
+    drawBoard(n)
+
+n=8
 for i in range(1,n+1):
     drawDisc(n, init(n), i)
-drawBoard(n)
+# drawBoard(n)
+eraseDisc(1,init(8),8)
+
+drawConfig(init(n),n)
+# resetConfig(init(n),n)
+
