@@ -2,23 +2,31 @@ import turtle
 from init import *
 from config import N
 from random import randint
-colors = ["red", "blue", "black", "yellow", "cyan", "pink", "green", "purple"]
+colors = ["#1ecbe1", "#2684d9", "#2960d6", "#243ddb", "#3023dc", "#4823dc", "#6220df", "#831ee1"]
 
 def drawBoard(n):
-
+    turtle.update()
     turtle.speed(0)
     turtle.penup()
     turtle.goto(0,150)
     turtle.pendown()
+    turtle.color("white")
     turtle.write("Tour d'Hanoï",align="center",font=("ariel",48,"bold"))
+    turtle.color("white")
     turtle.hideturtle()
+
 
     dr = turtle.Turtle()
     dr.speed(0)
     dr.penup()
     win = turtle.Screen()
-    win.setup(900,600)
-    dr.goto(-400,-150)
+    x, y = 900, 600
+
+    win.setup(x,y)
+    win.bgcolor("#8da11d")
+    dr.color("white")
+    dr.pensize(4)
+    dr.goto(-x/2 + 50,-y/4)
     dr.pendown()
     turtle.update()
 
@@ -44,6 +52,7 @@ def drawBoard(n):
     turtle.done()
 
 def drawDisc(nd, board, n):
+    turtle.update()
     disc_turtle = turtle.Turtle()
     disc_turtle.speed(0)
     disc_turtle.penup()
@@ -53,7 +62,7 @@ def drawDisc(nd, board, n):
     tower_number = posDisque(board, nd)
     tower_height = nbDisques(board, tower_number)
     disc_size = n  + 1 
-    x = (-400) + (nd*12 ) + ((nd-1) * 43) * 1 # the final number is the tower number - 1
+    x = (-400) + (nd*12 ) + ((nd-1) * 43) * 0# the final number is the tower number - 1
     y = -133 - n * 21 + 20 * tower_height
     
     disc_turtle.goto(x , y)
@@ -65,7 +74,8 @@ def drawDisc(nd, board, n):
     disc_turtle.penup() 
     turtle.update()
     disc_turtle.hideturtle()
-    
-for i in range(1,9):
-    drawDisc(8, init(8), i)
-drawBoard(8)
+
+n=5
+for i in range(1,n+1):
+    drawDisc(n, init(n), i)
+drawBoard(n)
