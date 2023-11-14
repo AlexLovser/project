@@ -2,6 +2,7 @@ from src.cheating.types.generic import create_type, type_wrapper
 from src.config import *
 from src.operations import drawBoard, drawDisc
 import time
+from datetime import timedelta, datetime
 
 
 import turtle as t
@@ -39,6 +40,13 @@ def gameRender(self, context):
         context['is_victory'] = False
 
         return
+    
+
+    if context['animating']:
+        end_time = context['animating']['start_time'] + timedelta(milliseconds=context['animating']['timeout'])
+        if (end_time < datetime.now()):
+            context['animating']['on_finish']()
+            context['animating'] = None
 
     for i in range(context['disk_number']):
         drawDisc(self.turtle, context, i + 1, context['board'])

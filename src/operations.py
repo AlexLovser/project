@@ -2,6 +2,7 @@ from src.config import *
 from src.init import posDisque
 from winsound import PlaySound, SND_ASYNC
 from os import path
+from datetime import datetime
 
 
 def play_sound(file_name):
@@ -141,10 +142,49 @@ def drawDisc(drawer, context, disk_number, board):
     drawer.penup()
 
     dragging = context['dragging']
+    animating = context['animating']
     disk_position = posDisque(board, disk_number)
     disk_width = getDiskWidth(context, disk_number)
-    
-    if dragging and dragging[0] == disk_number:
+    if animating and animating['disk'] == disk_number:
+        durated = (datetime.now() - animating['start_time']).total_seconds() * 1000
+        TOWER_HEIGHT = (context['disk_number'] + 2) * DISK_HEIGHT
+
+        drawer.color(context['disk_colors'][disk_number])
+
+        x1, y1 = towerBasePosition(context, animating['from_tower'])
+        x2, y2 = towerBasePosition(context, animating['to_tower'])
+
+        disk_1y = y1 + (len(context['board'][animating['from_tower']]) + 1 - 0.5) * DISK_HEIGHT
+        disk_2y = y2 + (len(context['board'][animating['to_tower']]) + 0.5) * DISK_HEIGHT
+
+        h1 = y1 + TOWER_HEIGHT - disk_1y
+        h2 = y2 + TOWER_HEIGHT - disk_2y
+
+        distance_btw_towers = x2 - x1
+
+        def f(t):
+            if t < 0.3:
+                x = x1
+                y = disk_1y + t / 0.3 * h1
+            elif t > 0.7:
+                x = x2
+                y = y2 + TOWER_HEIGHT - ((t - 0.7) / 0.3) * h2
+            else:
+                t = (t - 0.3) / 0.4 - 0.5
+               
+                
+
+                x = x1 + (distance_btw_towers) * (t + 0.5)
+                t = -t
+                y = y2 + TOWER_HEIGHT * 1.5 - (5 * (t * 10) ** 2) + t * 20
+
+
+            # print(t)
+            return int(x), int(y)
+
+        x, y = f(durated / animating['timeout'])
+        x -= int(disk_width / 2)
+    elif dragging and dragging[0] == disk_number:
         x = context['mouse_x'] - int(context['window_width'] / 2) - dragging[1][0]
         y = -context['mouse_y'] + int(context['window_height'] / 2) + dragging[1][1]
         drawer.color(context['disk_colors_adjusted'][disk_number])
