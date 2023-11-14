@@ -16,25 +16,6 @@ RenderManager.window.bgcolor("#222222")
 RenderManager.window.title("Hanoi Towers")
 
 
-def square(drawer: t.Turtle):
-    drawer.pendown()
-    for _ in range(2):
-        drawer.forward(50)
-        drawer.left(90)
-        drawer.forward(50)
-        drawer.left(90)
-
-
-def filled_square(drawer: t.Turtle):
-    drawer.pensize(50)
-    # drawer.shape("square")
-    drawer.left(90)
-    drawer.forward(25)
-    drawer.right(90)
-    drawer.pendown()
-    drawer.forward(50)
-    
-
 def render(self, context):
     self.turtle.pencolor(BOARD_COLOR)
 
