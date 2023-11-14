@@ -43,8 +43,15 @@ def get_the_solution_instruction(context): # => this is function where you have 
 
 
 def show_the_solution(context, turtle):
-    to_move = get_the_solution_instruction(context)
+
+    # to_move = []
     
+
+    # for i in range(len(context['board'])):
+    #     for j in context['board'][i]:
+    #         to_move.append([i, 2])
+
+    to_move = get_the_solution_instruction(context)
     n = 0
 
     def _show_the_solution():
