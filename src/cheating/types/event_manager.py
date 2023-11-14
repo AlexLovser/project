@@ -28,41 +28,39 @@ def on_mouse_move(self, event):
 
 
 def on_mouse_click(self, event):
-    mouse_x, mouse_y = event.x, event.y
+    if self.context['can_interact']:
+        mouse_x, mouse_y = event.x, event.y
 
-    mouse_x -= int(self.context['window_width'] / 2)
-    mouse_y = -mouse_y + int(self.context['window_height'] / 2)
+        mouse_x -= int(self.context['window_width'] / 2)
+        mouse_y = -mouse_y + int(self.context['window_height'] / 2)
 
-    for i in range(N):
-        disks_on_a_tower = self.context['board'][i]
-        x, y = towerBasePosition(self.context, i)
+        for i in range(N):
+            disks_on_a_tower = self.context['board'][i]
+            x, y = towerBasePosition(self.context, i)
 
-        index = 0
-        for disk in disks_on_a_tower:
-            disk_width = getDiskWidth(self.context, disk)
-            disk_x = x - int(disk_width / 2)
-            disk_y = y + DISK_HEIGHT * index + int(DISK_HEIGHT / 2)
-            disk_box = (disk_x, disk_y + int(DISK_HEIGHT / 2), disk_x + disk_width, disk_y - DISK_HEIGHT)
+            index = 0
+            for disk in disks_on_a_tower:
+                disk_width = getDiskWidth(self.context, disk)
+                disk_x = x - int(disk_width / 2)
+                disk_y = y + DISK_HEIGHT * index + int(DISK_HEIGHT / 2)
+                disk_box = (disk_x, disk_y + int(DISK_HEIGHT / 2), disk_x + disk_width, disk_y - DISK_HEIGHT)
 
-            is_hovered = mouse_hovers_this_disk(self.context, disk_box)
+                is_hovered = mouse_hovers_this_disk(self.context, disk_box)
 
-            if is_hovered and index == len(disks_on_a_tower) - 1: # is hovered and its the last disk
-                inner_x = mouse_x - disk_box[0]
-                inner_y = mouse_y - disk_box[1]
+                if is_hovered and index == len(disks_on_a_tower) - 1: # is hovered and its the last disk
+                    inner_x = mouse_x - disk_box[0]
+                    inner_y = mouse_y - disk_box[1]
 
-                self.context['dragging'] = [disk, (inner_x, inner_y)]
+                    self.context['dragging'] = [disk, (inner_x, inner_y)]
 
+                    return
+
+                index += 1
+
+        for i in self.ui.values():
+            if i.hovers(self.context['mouse_x'], self.context['mouse_y']):
+                i.callback(self.context)
                 return
-
-            index += 1
-
-    for i in self.ui.values():
-        if i.hovers(self.context['mouse_x'], self.context['mouse_y']):
-            i.callback(self.context)
-            return
-
-    
-
 
 
 def on_mouse_release(self, event):
@@ -77,7 +75,7 @@ def on_mouse_release(self, event):
                 
                 # check that the disk is not smaller
                 if to_tower_disks:
-                    latest_disk_on_a_tower = to_tower_disks[0]
+                    latest_disk_on_a_tower = to_tower_disks[-1]
                     if latest_disk_on_a_tower < dragged[0]:
                         return
                 

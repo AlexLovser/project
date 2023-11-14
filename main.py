@@ -8,6 +8,7 @@ from src.config import *
 from src.operations import *
 
 from src.cheating.types.ui.previous_tour_btn import PreviousButton
+from src.cheating.types.ui.solution_btn import SolutionButton
 
 
 
@@ -23,15 +24,19 @@ def run():
         'disk_colors': {},
         'disk_colors_adjusted': {},
         'is_victory': False,
-        'history': []
+        'history': [],
+        'page': 'game',
+        'can_interact': True
     }
 
     UI = {
-        'previous_button': PreviousButton
+        'previous_button': PreviousButton,
+        'solution_button': SolutionButton
     }
 
     for i in UI.values():
         i.context = context
+        i.turtle = RenderManager.turtle
 
 
     context['board'] = init(context['disk_number'])

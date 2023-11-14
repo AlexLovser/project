@@ -15,12 +15,12 @@ RenderManager.window.tracer(0, 0)
 RenderManager.window.bgcolor("#222222")
 RenderManager.window.title("Hanoi Towers")
 
-def renderUI(self, context):
+def renderGameUI(self, context):
     for i in self.ui.values():
         i.draw(self.turtle)
 
 
-def render(self, context):
+def gameRender(self, context):
     self.turtle.pencolor(BOARD_COLOR)
 
     drawBoard(self.turtle, context)
@@ -43,13 +43,17 @@ def render(self, context):
     for i in range(context['disk_number']):
         drawDisc(self.turtle, context, i + 1, context['board'])
 
-    self.renderUI(context)
-
+    self.renderGameUI(context)
     self.turtle.pencolor(BOARD_COLOR)
 
 
+def render(self, context):
+    if context['page'] == 'game':
+        gameRender(self, context)
+
+
 def start_render(self, *args, **kwargs):
-    delayms =int(round(FRAME_DELAY * 1000))
+    delayms = int(round(FRAME_DELAY * 1000))
     def inner():
         if args[0]['is_interaction']:
             self.turtle.clear() # removing all previous traces
@@ -63,6 +67,6 @@ def start_render(self, *args, **kwargs):
 
 RenderManager.render_function = type_wrapper(RenderManager, render)
 RenderManager.start_render = type_wrapper(RenderManager, start_render)
-RenderManager.renderUI = type_wrapper(RenderManager, renderUI)
+RenderManager.renderGameUI = type_wrapper(RenderManager, renderGameUI)
 
 

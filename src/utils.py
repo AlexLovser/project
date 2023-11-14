@@ -30,11 +30,14 @@ def bubbleSorting(array: list, order=1) -> None:
         array.reverse()
 
 
-def loop_recursion_wrapper(func, ontimer_func, timeout, *args, **kwargs):
-    def inner():
+def loop_recursion_wrapper(func, checker, turtle, timeout):
+    def inner(*args, **kwargs):
         func(*args, **kwargs)
 
-        ontimer_func(func, t=timeout)
+        if checker():
+            print('E')
+        
+        turtle.screen.ontimer(func, t=timeout)
 
     return inner
 
