@@ -18,7 +18,6 @@ def moveDisque(P, de, a):
     play_sound('click')
 
 
-
 def towerBasePosition(context, tower_number):
     W = context['window_width']
     H = context['window_height']
