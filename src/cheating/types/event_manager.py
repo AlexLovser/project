@@ -71,13 +71,22 @@ def on_mouse_release(self, event):
         if tower != None:
             pos = posDisque(self.context['board'], dragged[0]) 
             if pos[0] != tower:
+                to_tower_disks = self.context['board'][tower]
+                
+                # check that the disk is not smaller
+                if to_tower_disks:
+                    latest_disk_on_a_tower = to_tower_disks[0]
+                    if latest_disk_on_a_tower < dragged[0]:
+                        return
+                    
                 moveDisque(self.context['board'], pos[0], tower)
 
                 victory = verifVictoire(self.context['board'], N)
                 
                 if victory:
                     self.context['is_victory'] = True
-                    play_sound('win')
+                    # play_sound('win')
+                    play_sound('ussr')
                     self.context['board'] = init(self.context['disk_number'])
 
         

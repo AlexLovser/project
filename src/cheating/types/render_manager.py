@@ -48,7 +48,7 @@ def render(self, context):
         self.turtle.pendown()
         self.turtle.color("#008000")
         self.turtle.write("VICTORY!!!",align="center", font=("ariel",48,"bold"))
-        time.sleep(3)
+        time.sleep(16)
         
         context['is_interaction'] = True
         context['is_victory'] = False

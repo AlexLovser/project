@@ -6,7 +6,6 @@ from os import path
 
 def play_sound(file_name):
     file_path = path.join(path.dirname(__file__), f'sounds\\{file_name}.wav')
-    print(file_path)
 
     try:
         PlaySound(file_path, SND_ASYNC)

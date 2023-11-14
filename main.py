@@ -19,7 +19,8 @@ def run():
         'disk_number': N + 2 , # or more
         'disk_colors': {},
         'disk_colors_adjusted': {},
-        'is_victory': False
+        'is_victory': False,
+        'history': []
         
     }
 
