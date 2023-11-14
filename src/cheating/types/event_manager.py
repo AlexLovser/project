@@ -64,33 +64,34 @@ def on_mouse_click(self, event):
 
 
 def on_mouse_release(self, event):
-    dragged = self.context['dragging']
-    if dragged:        
-        tower = disk_is_in_a_towers_space(self.context)
+    if self.context['can_interact']:
+        dragged = self.context['dragging']
+        if dragged:        
+            tower = disk_is_in_a_towers_space(self.context)
 
-        if tower != None:
-            pos = posDisque(self.context['board'], dragged[0]) 
-            if pos[0] != tower:
-                to_tower_disks = self.context['board'][tower]
-                
-                # check that the disk is not smaller
-                if to_tower_disks:
-                    latest_disk_on_a_tower = to_tower_disks[-1]
-                    if latest_disk_on_a_tower < dragged[0]:
-                        return
-                
-                add_movement_to_history(self.context, pos[0], tower)
-                # moveDisque(self.context['board'], pos[0], tower)
+            if tower != None:
+                pos = posDisque(self.context['board'], dragged[0]) 
+                if pos[0] != tower:
+                    to_tower_disks = self.context['board'][tower]
+                    
+                    # check that the disk is not smaller
+                    if to_tower_disks:
+                        latest_disk_on_a_tower = to_tower_disks[-1]
+                        if latest_disk_on_a_tower < dragged[0]:
+                            return
+                    
+                    add_movement_to_history(self.context, pos[0], tower)
+                    # moveDisque(self.context['board'], pos[0], tower)
 
-                victory = verifVictoire(self.context['board'], N)
-                
-                if victory:
-                    self.context['is_victory'] = True
-                    play_sound('ussr')
-                    self.context['board'] = init(self.context['disk_number'])
+                    victory = verifVictoire(self.context['board'], N)
+                    
+                    if victory:
+                        self.context['is_victory'] = True
+                        play_sound('ussr')
+                        self.context['board'] = init(self.context['disk_number'])
 
-        
-        self.context['dragging'] = None
+            
+            self.context['dragging'] = None
     
 
 

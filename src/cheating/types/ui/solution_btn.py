@@ -55,7 +55,7 @@ def callback(self, context):
 
     show_the_solution(context, self.turtle)
 
-    context['can_interact'] = True
+    
 
 
 def hovers(self, mouse_x, mouse_y):
