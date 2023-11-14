@@ -7,6 +7,9 @@ from src.cheating.types.event_manager import EventManager
 from src.config import *
 from src.operations import *
 
+from src.cheating.types.ui.previous_tour_btn import PreviousButton
+
+
 
 def run():
     context = {
@@ -21,8 +24,15 @@ def run():
         'disk_colors_adjusted': {},
         'is_victory': False,
         'history': []
-        
     }
+
+    UI = {
+        'previous_button': PreviousButton
+    }
+
+    for i in UI.values():
+        i.context = context
+
 
     context['board'] = init(context['disk_number'])
 
@@ -30,9 +40,10 @@ def run():
         context['disk_colors'][i + 1] = generateDiskColor(context, i + 1)
         context['disk_colors_adjusted'][i + 1] = adjust_color_lighten(*hex_to_rgb(context['disk_colors'][i + 1]), 0.4)
 
-
+    RenderManager.ui = UI
     RenderManager.start_render(context)
 
+    EventManager.ui = UI
     EventManager.context = context
     EventManager.window = RenderManager.window
 

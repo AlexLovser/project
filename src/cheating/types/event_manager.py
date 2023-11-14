@@ -1,5 +1,6 @@
 from .generic import create_type, type_wrapper
 from src.operations import *
+from src.history import add_movement_to_history
 from src.init import verifVictoire, init
 
 from src.utils import maximum, minimum
@@ -48,24 +49,25 @@ def on_mouse_click(self, event):
             if is_hovered and index == len(disks_on_a_tower) - 1: # is hovered and its the last disk
                 inner_x = mouse_x - disk_box[0]
                 inner_y = mouse_y - disk_box[1]
-                # print(inner_x, inner_y)
 
                 self.context['dragging'] = [disk, (inner_x, inner_y)]
 
-                # print(x, y)
-
-                break
+                return
 
             index += 1
+
+    for i in self.ui.values():
+        if i.hovers(self.context['mouse_x'], self.context['mouse_y']):
+            i.callback(self.context)
+            return
+
+    
+
 
 
 def on_mouse_release(self, event):
     dragged = self.context['dragging']
-    if dragged:
-        # mouse_x, mouse_y = event.x, event.y
-        # mx = mouse_x - self.context['window_width'] / 2
-        # my = -mouse_y + self.context['window_height'] / 2
-        
+    if dragged:        
         tower = disk_is_in_a_towers_space(self.context)
 
         if tower != None:
@@ -78,14 +80,14 @@ def on_mouse_release(self, event):
                     latest_disk_on_a_tower = to_tower_disks[0]
                     if latest_disk_on_a_tower < dragged[0]:
                         return
-                    
-                moveDisque(self.context['board'], pos[0], tower)
+                
+                add_movement_to_history(self.context, pos[0], tower)
+                # moveDisque(self.context['board'], pos[0], tower)
 
                 victory = verifVictoire(self.context['board'], N)
                 
                 if victory:
                     self.context['is_victory'] = True
-                    # play_sound('win')
                     play_sound('ussr')
                     self.context['board'] = init(self.context['disk_number'])
 

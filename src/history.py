@@ -10,7 +10,7 @@ def add_movement_to_history(context, de , a):
 def undo_last_movement(context):
     if context['history'] != None:
         de, a= context['history'].pop()
-        moveDisque(context['board', a, de])
+        moveDisque(context['board'], a, de)
 
 
 
