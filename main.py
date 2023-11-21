@@ -21,7 +21,7 @@ def run():
         'animating': None,
         "window_width": RenderManager.window.window_width(),
         "window_height": RenderManager.window.window_height(),
-        'disk_number': N + 5 , # or more
+        'disk_number': N + 1 , # or more
         'disk_colors': {},
         'disk_colors_adjusted': {},
         'is_victory': False,
