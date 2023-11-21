@@ -171,12 +171,10 @@ def drawDisc(drawer, context, disk_number, board):
                 y = y2 + TOWER_HEIGHT - ((t - 0.7) / 0.3) * h2
             else:
                 t = (t - 0.3) / 0.4 - 0.5
-               
-                
 
                 x = x1 + (distance_btw_towers) * (t + 0.5)
                 t = -t
-                y = y2 + TOWER_HEIGHT * 1.5 - (5 * (t * 10) ** 2) + t * 20
+                y = y2 + TOWER_HEIGHT * 1.5 - (5 * (t * 10) ** 2) + t * 15
 
 
             # print(t)

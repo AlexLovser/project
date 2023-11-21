@@ -1,18 +1,25 @@
 from src.operations import moveDisque
 from datetime import datetime
+from src.init import init, verifVictoire
+
 
 
 def add_movement_to_history(context, de , a):
     moveDisque(context['board'], de, a)
     context['history'].append([de, a])
 
+    if verifVictoire(context['board'], context['disk_number']):
+        context['is_victory'] = True
+
 
 def undo_last_movement(context):
-    if context['history']:
+    if context['history'] and context['can_interact']:
         de, a = context['history'].pop()
+        context['can_interact'] = False
 
         def on_finish():
             moveDisque(context['board'], a, de)
+            context['can_interact'] = True
 
         context['animating'] = {
             'from_tower': a,
@@ -30,8 +37,8 @@ def view_history(context):
     for i in range(len(context['history'])):
         print("De:", context['history'][0]," à:", context['history'][1])
 
-def get_the_solution_instruction(context): # => this is function where you have to write an algoritm
-    to_move = [] # list with steps => list[de, a] => [[1, 0], [2, 1], [0, 1] ...] 
+def get_the_solution_instruction(context):
+    to_move = []
 
     def TowerOfHanoi(n, from_rod, to_rod, aux_rod):
         if n == 0: 
@@ -45,13 +52,7 @@ def get_the_solution_instruction(context): # => this is function where you have 
 
 def show_the_solution(context, turtle):
 
-    # to_move = []
-    
-
-    # for i in range(len(context['board'])):
-    #     for j in context['board'][i]:
-    #         to_move.append([i, 2])
-
+    context['board'] = init(context['disk_number'])
     to_move = get_the_solution_instruction(context)
     n = 0
 
@@ -59,6 +60,7 @@ def show_the_solution(context, turtle):
         nonlocal n
         de, a = to_move[n]
         
+        context['can_interact'] = False
 
         def on_finish():
             add_movement_to_history(context, de, a)
@@ -73,11 +75,12 @@ def show_the_solution(context, turtle):
         }
 
         if n != len(to_move) - 1:
-            turtle.screen.ontimer(_show_the_solution, t=1000)
+            n += 1
+            turtle.screen.ontimer(_show_the_solution, t=context['animating']['timeout'] + 50)
         else:
             context['can_interact'] = True
 
-        n += 1
+        
 
     _show_the_solution()
 
