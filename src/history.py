@@ -32,10 +32,11 @@ def view_history(context):
 
 
 
-def get_the_solution_instruction(context): # => this is function where you have to write an algoritm
-    to_move = [] # list with steps => list[de, a] => [[1, 0], [2, 1], [0, 1] ...] 
+def get_the_solution_instruction(context):
+    to_move = [] 
 
-    ... # NOTE your code here ...
+    
+    
 
 
     return to_move 
