@@ -9,6 +9,8 @@ from src.operations import *
 
 from src.cheating.types.ui.previous_tour_btn import PreviousButton
 from src.cheating.types.ui.solution_btn import SolutionButton
+from src.cheating.types.ui.start_game_btn import StartGameButton
+from src.cheating.types.ui.finish_game_btn import FinishGameButton
 
 
 
@@ -21,19 +23,21 @@ def run():
         'animating': None,
         "window_width": RenderManager.window.window_width(),
         "window_height": RenderManager.window.window_height(),
-        'disk_number': N + 3 , # or more
+        'disk_number': N + 5 , # or more
         'disk_colors': {},
         'disk_colors_adjusted': {},
         'is_victory': False,
         'history': [],
-        'page': 'game',
+        'page': 'main_menu',
         'can_interact': True,
         'solution_used': False
     }
 
     UI = {
         'previous_button': PreviousButton,
-        'solution_button': SolutionButton
+        'solution_button': SolutionButton,
+        'startgame_button': StartGameButton,
+        'finishgame_button': FinishGameButton,
     }
 
     for i in UI.values():

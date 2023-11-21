@@ -51,6 +51,9 @@ def show_the_solution(context, turtle):
     n = 0
 
     def _show_the_solution():
+        if context['page'] !=' game':
+            return
+        
         nonlocal n
         de, a = to_move[n]
         

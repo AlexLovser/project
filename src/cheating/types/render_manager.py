@@ -18,7 +18,13 @@ RenderManager.window.bgcolor("#222222")
 RenderManager.window.title("Hanoi Towers")
 
 def renderGameUI(self, context):
-    for i in self.ui.values():
+    elements = [self.ui['previous_button'], self.ui['solution_button'], self.ui['finishgame_button']]
+    for i in elements:
+        i.draw(self.turtle)
+
+def renderMenuUI(self, context):
+    elements = [self.ui['startgame_button']]
+    for i in elements:
         i.draw(self.turtle)
 
 
@@ -84,9 +90,14 @@ def gameRender(self, context):
     self.turtle.pencolor(BOARD_COLOR)
 
 
+def mainMenuRender(self, context):
+    renderMenuUI(self, context)
+
 def render(self, context):
     if context['page'] == 'game':
         gameRender(self, context)
+    elif context['page'] == 'main_menu':
+        mainMenuRender(self, context)
 
 
 def start_render(self, *args, **kwargs):
