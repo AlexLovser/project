@@ -52,6 +52,7 @@ def draw(self, drawer):
 
 def callback(self, context):
     context['can_interact'] = False
+    context['solution_used'] = True
 
     show_the_solution(context, self.turtle)
 

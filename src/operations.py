@@ -163,18 +163,27 @@ def drawDisc(drawer, context, disk_number, board):
         distance_btw_towers = x2 - x1
 
         def f(t):
-            if t < 0.3:
+            if t < 0.2:
                 x = x1
-                y = disk_1y + t / 0.3 * h1
-            elif t > 0.7:
+                y = disk_1y + t / 0.2 * h1
+            elif t > 0.8:
                 x = x2
-                y = y2 + TOWER_HEIGHT - ((t - 0.7) / 0.3) * h2
+                y = y2 + TOWER_HEIGHT - ((t - 0.8) / 0.2) * h2
             else:
-                t = (t - 0.3) / 0.4 - 0.5
+                t = (t - 0.2) / 0.6 - 0.5
 
                 x = x1 + (distance_btw_towers) * (t + 0.5)
                 t = -t
-                y = y2 + TOWER_HEIGHT * 1.5 - (5 * (t * 10) ** 2) + t * 15
+                t *= 10
+                
+                if abs(animating['to_tower'] - animating['from_tower']) > 1:
+                    c = TOWER_HEIGHT * 0.9
+                    a = -c / 25 * 0.9
+                    y = y2 + a * (t ** 2) + c * 2
+                else:
+                    c = TOWER_HEIGHT / 2
+                    a = -c / 25
+                    y = y2 + a * (t ** 2) + c * 3
 
 
             # print(t)

@@ -2,6 +2,7 @@ from src.cheating.types.generic import create_type, type_wrapper
 from src.config import *
 from src.operations import drawBoard, drawDisc
 import time
+from src.init import init
 from datetime import timedelta, datetime
 
 
@@ -32,12 +33,40 @@ def gameRender(self, context):
         self.turtle.penup()
         self.turtle.goto(0, 150)
         self.turtle.pendown()
-        self.turtle.color("#008000")
-        self.turtle.write("VICTORY!!!",align="center", font=("ariel",48,"bold"))
-        time.sleep(3)
+
+
+        if context['solution_used']:
+            self.turtle.color("#00ffff")
+            self.turtle.write("DEFEAT!!!", align="center", font=("ariel",48,"bold"))
+            self.turtle.penup()
+            self.turtle.goto(0, 100)
+            self.turtle.pendown()
+            self.turtle.write("You have used the soultion :(", align="center", font=("ariel",24,"bold"))
+
+        else:
+            ideal = 2 ** context['disk_number'] - 1
+            delta = len(context['history'])  - ideal
+            if delta > ideal * 0.2:
+                self.turtle.color("#00ffff")
+                self.turtle.write("DEFEAT!!!",align="center", font=("ariel",48,"bold"))
+                self.turtle.penup()
+                self.turtle.goto(0, 100)
+                self.turtle.pendown()
+                self.turtle.write(f"Too many moves: {len(context['history'])} / {int(ideal * 1.2)} [Ideal: {ideal}]", align="center", font=("ariel",24,"bold"))
+            else:
+                self.turtle.color("#008000")
+                self.turtle.write("VICTORY!!!",align="center", font=("ariel",48,"bold"))
+                self.turtle.penup()
+                self.turtle.goto(0, 100)
+                self.turtle.pendown()
+                self.turtle.write(f"Your moves {len(context['history'])} / {int(ideal * 1.2)} [Ideal: {ideal}]", align="center", font=("ariel",24,"bold"))
+
+
+        time.sleep(5)
         
         context['is_interaction'] = True
         context['is_victory'] = False
+        context['board'] = init(context['disk_number'])
 
         return
     

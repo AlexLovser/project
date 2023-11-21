@@ -27,7 +27,8 @@ def run():
         'is_victory': False,
         'history': [],
         'page': 'game',
-        'can_interact': True
+        'can_interact': True,
+        'solution_used': False
     }
 
     UI = {

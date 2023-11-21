@@ -31,12 +31,6 @@ def undo_last_movement(context):
         }
         
 
-
-
-def view_history(context):
-    for i in range(len(context['history'])):
-        print("De:", context['history'][0]," à:", context['history'][1])
-
 def get_the_solution_instruction(context):
     to_move = []
 
@@ -70,7 +64,7 @@ def show_the_solution(context, turtle):
             'to_tower': a,
             'start_time': datetime.now(),
             'disk': context['board'][de][-1],
-            'timeout': 600,
+            'timeout': 700,
             'on_finish': on_finish
         }
 
