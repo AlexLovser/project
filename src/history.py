@@ -30,18 +30,18 @@ def view_history(context):
     for i in range(len(context['history'])):
         print("De:", context['history'][0]," à:", context['history'][1])
 
+def get_the_solution_instruction(context): # => this is function where you have to write an algoritm
+    to_move = [] # list with steps => list[de, a] => [[1, 0], [2, 1], [0, 1] ...] 
 
+    def TowerOfHanoi(n, from_rod, to_rod, aux_rod):
+        if n == 0: 
+            return 
+        TowerOfHanoi(n-1, from_rod, aux_rod, to_rod) 
+        to_move.append([from_rod,to_rod])
+        TowerOfHanoi(n-1, aux_rod, to_rod, from_rod) 
 
-def get_the_solution_instruction(context):
-    to_move = [] 
-
-    
-    
-
-
-    return to_move 
-    
-
+    TowerOfHanoi(context['disk_number'],0,2,1) 
+    return to_move
 
 def show_the_solution(context, turtle):
 
