@@ -23,14 +23,15 @@ def run():
         'animating': None,
         "window_width": RenderManager.window.window_width(),
         "window_height": RenderManager.window.window_height(),
-        'disk_number': N + 5 , # or more
+        'disk_number': N + 2 , # or more
         'disk_colors': {},
         'disk_colors_adjusted': {},
         'is_victory': False,
         'history': [],
         'page': 'main_menu',
         'can_interact': True,
-        'solution_used': False
+        'solution_used': False,
+        'stars': []
     }
 
     UI = {
@@ -53,6 +54,7 @@ def run():
 
     RenderManager.ui = UI
     RenderManager.start_render(context)
+    RenderManager.start_generating_stars(context)
 
     EventManager.ui = UI
     EventManager.context = context

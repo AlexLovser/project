@@ -57,6 +57,7 @@ def callback(self, context):
     context['animating'] = None
     context['dragging'] = None
     context['page'] = 'main_menu'
+    context['can_interact'] = True
 
 
 def hovers(self, mouse_x, mouse_y):
