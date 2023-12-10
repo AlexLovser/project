@@ -13,6 +13,8 @@ from src.cheating.types.ui.start_game_btn import StartGameButton
 from src.cheating.types.ui.finish_game_btn import FinishGameButton
 
 
+from src.login import auth, open_db, commit_db, get_diificulty
+
 
 def run():
     context = {
@@ -31,7 +33,8 @@ def run():
         'page': 'main_menu',
         'can_interact': True,
         'solution_used': False,
-        'stars': []
+        'stars': [],
+        'stats': {}
     }
 
     UI = {
@@ -40,6 +43,21 @@ def run():
         'startgame_button': StartGameButton,
         'finishgame_button': FinishGameButton,
     }
+
+    # credentials = auth()
+
+    # if credentials is None:
+    #     return
+    
+    # username = credentials
+    username = 'alexlovser'
+    context['username'] = username
+    
+
+    D = get_diificulty()
+    context['disk_number'] = 3 + D
+    play_sound('click')
+
 
     for i in UI.values():
         i.context = context
@@ -52,13 +70,20 @@ def run():
         context['disk_colors'][i + 1] = generateDiskColor(context, i + 1)
         context['disk_colors_adjusted'][i + 1] = adjust_color_lighten(*hex_to_rgb(context['disk_colors'][i + 1]), 0.4)
 
+
+    
+
+    
+
     RenderManager.ui = UI
     RenderManager.start_render(context)
     RenderManager.start_generating_stars(context)
+    RenderManager.window.title(f"Hanoi Towers | {username}")
 
     EventManager.ui = UI
     EventManager.context = context
     EventManager.window = RenderManager.window
+    
 
     bind = EventManager.window.getcanvas().bind
     bind("<Motion>", EventManager.on_mouse_move)

@@ -67,7 +67,7 @@ def show_the_solution(context, turtle):
             'to_tower': a,
             'start_time': datetime.now(),
             'disk': context['board'][de][-1],
-            'timeout': 200,
+            'timeout': 700,
             'on_finish': on_finish
         }
 

@@ -1,11 +1,12 @@
 from src.cheating.types.generic import create_type, type_wrapper
 from src.config import *
-from src.operations import drawBoard, drawDisc
+from src.operations import drawBoard, drawDisc, play_sound
 import time
 from src.init import init
 from datetime import timedelta, datetime
 import math
 import random
+from src.login import open_db, commit_db
 
 
 import turtle as t
@@ -17,7 +18,7 @@ RenderManager.turtle.hideturtle()
 
 RenderManager.window.tracer(0, 0)
 RenderManager.window.bgcolor("#222222")
-RenderManager.window.title("Hanoi Towers")
+
 
 def renderGameUI(self, context):
     elements = [self.ui['previous_button'], self.ui['solution_button'], self.ui['finishgame_button']]
@@ -42,39 +43,83 @@ def gameRender(self, context):
         self.turtle.goto(0, 150)
         self.turtle.pendown()
 
+        time_spent = (datetime.now() - context['start_time']).total_seconds()
+        profiles = open_db()
+
+        avg_data = profiles[context['username']]['games']
+        minutes, seconds = divmod(time_spent, 60)
+
+        minutes = round(minutes)
+        seconds = round(seconds)
+
+        if avg_data:
+            avg_time_spent = int(sum(i['time'] for i in avg_data) / len(avg_data))
+            avg_minutes, avg_seconds = divmod(avg_time_spent, 60)
+            avg_minutes = round(avg_minutes)
+            avg_seconds = round(avg_seconds)
+        else:
+            avg_minutes = minutes
+            avg_seconds = seconds
+       
+
+
+        ideal = 2 ** context['disk_number']  - 1
+        score = len(context['history'])
+        delta = score - ideal
+        context['stats']['time'] = time_spent
+        context['stats']['solution_used'] = context['solution_used']
+        context['stats']['score'] = score
+        context['stats']['ideal'] = ideal
+        context['stats']['disk_number'] = context['disk_number']
+        
 
         if context['solution_used']:
+            context['stats']['win'] = False
             self.turtle.color("#00ffff")
             self.turtle.write("DEFEAT!!!", align="center", font=("ariel",48,"bold"))
             self.turtle.penup()
             self.turtle.goto(0, 100)
             self.turtle.pendown()
             self.turtle.write("You have used the soultion :(", align="center", font=("ariel",24,"bold"))
-
+            profiles = open_db()
         else:
-            ideal = 2 ** context['disk_number'] - 1
-            delta = len(context['history'])  - ideal
+           
             if delta > ideal * 0.2:
+                context['stats']['win'] = False
                 self.turtle.color("#00ffff")
                 self.turtle.write("DEFEAT!!!",align="center", font=("ariel",48,"bold"))
                 self.turtle.penup()
                 self.turtle.goto(0, 100)
                 self.turtle.pendown()
                 self.turtle.write(f"Too many moves: {len(context['history'])} / {int(ideal * 1.2)} [Ideal: {ideal}]", align="center", font=("ariel",24,"bold"))
+                self.turtle.penup()
+                self.turtle.goto(0, 130)
+                self.turtle.pendown()
+                self.turtle.write(f"Time spent: {minutes} min {seconds} sec / Average: {avg_minutes} min {avg_seconds} sec", align="center", font=("ariel",12,"bold"))
             else:
+                play_sound('win')
+                context['stats']['win'] = True
                 self.turtle.color("#008000")
                 self.turtle.write("VICTORY!!!",align="center", font=("ariel",48,"bold"))
                 self.turtle.penup()
                 self.turtle.goto(0, 100)
                 self.turtle.pendown()
                 self.turtle.write(f"Your moves {len(context['history'])} / {int(ideal * 1.2)} [Ideal: {ideal}]", align="center", font=("ariel",24,"bold"))
+                self.turtle.penup()
+                self.turtle.goto(0, 130)
+                self.turtle.pendown()
+                self.turtle.write(f"Time spent: {minutes} min {seconds} sec / Average: {avg_minutes} min {avg_seconds} sec", align="center", font=("ariel",12,"bold"))
 
+        profiles[context['username']]['games'].append(context['stats'])
+        commit_db(profiles)
 
         time.sleep(5)
         
         context['is_interaction'] = True
         context['is_victory'] = False
+        context['solution_used'] = False
         context['board'] = init(context['disk_number'])
+        context['start_time'] = datetime.now()
 
         return
     
@@ -97,7 +142,7 @@ def start_generating_stars(self, context):
     def inner():
         if context['page'] == 'main_menu':
             k = random.randint(-20, -2) / 4
-            l = random.randint(20, 80)
+            l = random.randint(40, 140)
             ww = int(context['window_width'] / 2)
             x = random.randint(-ww, ww )
             star_timeout = random.randint(1500, 3000)
@@ -141,7 +186,7 @@ def renderStars(self, context):
 
         colors = ['#94c9e4', '#afddec', '#d0e3ed']
         for iteration in range(3):
-            new_start_x = start_x + (iteration * a * 0.3)
+            new_start_x = start_x + (iteration * a * 0.5)
             x = int(new_start_x + (half_width - new_start_x) * (delta / timeout))
             y = int(k * x + C)
             self.turtle.color(colors[iteration])

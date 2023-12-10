@@ -87,7 +87,6 @@ def on_mouse_release(self, event):
                     
                     if victory:
                         self.context['is_victory'] = True
-                        play_sound('ussr')
                         self.context['board'] = init(self.context['disk_number'])
 
             

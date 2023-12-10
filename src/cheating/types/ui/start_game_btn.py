@@ -1,5 +1,5 @@
 from src.cheating.types.generic import create_type, type_wrapper
-
+from datetime import datetime
 
 
 StartGameButton = create_type('StartGameButton')()
@@ -31,15 +31,16 @@ def draw(self, drawer):
     drawer.color('#222222')
     drawer.pensize(4 + 2 * is_hovered)
     
-    drawer.goto(x - half, y)
+    drawer.goto(x + half, y)
     drawer.pendown()
-    drawer.goto(x + half, y - half)
-    drawer.goto(x + half, y + half)
-    drawer.goto(x - half, y)
+    drawer.goto(x - half, y - half)
+    drawer.goto(x - half, y + half)
+    drawer.goto(x + half, y)
 
    
 
 def callback(self, context):
+    self.context['start_time'] = datetime.now()
     self.context['page'] = 'game'
 
     
