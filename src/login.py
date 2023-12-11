@@ -40,14 +40,14 @@ def auth():
                 profiles[nickname] = {
                     'password': password,
                     'games': [
-                        {
-                            'disk_number': 5,
-                            'ideal': 17,
-                            'score': 23,
-                            'win': False,
-                            'time': 123,
-                            'solution_used': False
-                        }
+                        # {
+                        #     'disk_number': 5,
+                        #     'ideal': 17,
+                        #     'score': 23,
+                        #     'win': False,
+                        #     'time': 123,
+                        #     'solution_used': False
+                        # }
                     ]
                 }
 
