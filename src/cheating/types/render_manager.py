@@ -82,6 +82,7 @@ def gameRender(self, context):
             self.turtle.pendown()
             self.turtle.write("You have used the soultion :(", align="center", font=("ariel",24,"bold"))
             profiles = open_db()
+            time.sleep(5)
         else:
            
             if delta > ideal * 0.2:
@@ -109,17 +110,18 @@ def gameRender(self, context):
                 self.turtle.goto(0, 130)
                 self.turtle.pendown()
                 self.turtle.write(f"Time spent: {minutes} min {seconds} sec / Average: {avg_minutes} min {avg_seconds} sec", align="center", font=("ariel",12,"bold"))
+            time.sleep(10)
 
         profiles[context['username']]['games'].append(context['stats'])
         commit_db(profiles)
 
-        time.sleep(5)
-        
+
         context['is_interaction'] = True
         context['is_victory'] = False
         context['solution_used'] = False
         context['board'] = init(context['disk_number'])
         context['start_time'] = datetime.now()
+        context['history'] = []
 
         return
     

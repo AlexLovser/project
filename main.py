@@ -44,13 +44,13 @@ def run():
         'finishgame_button': FinishGameButton,
     }
 
-    # credentials = auth()
+    credentials = auth()
 
-    # if credentials is None:
-    #     return
+    if credentials is None:
+        return
     
-    # username = credentials
-    username = 'alexlovser'
+    username = credentials
+    # username = 'alexlovser'
     context['username'] = username
     
 
