@@ -1,1 +1,1 @@
-{}
+{"alexlovaer": {"password": "admin", "games": []}, "alexlovser": {"password": "admin", "games": [{"time": 51.058474, "solution_used": true, "score": 15, "ideal": 15, "disk_number": 4, "win": false}, {"time": 36.054084, "solution_used": false, "score": 19, "ideal": 15, "disk_number": 4, "win": false}, {"time": 29.759155, "solution_used": true, "score": 31, "ideal": 31, "disk_number": 5, "win": false}]}}

@@ -1,0 +1,62 @@
+git clone https://github.com/AlexLovser/project
+
+
+
+Raport
+Bonjour à tous, 
+
+Aujourd'hui, je souhaite vous présenter un projet sur lequel mon partenaire et moi-même travaillons depuis quelques semaines.
+
+Nous n'avons utilisé que les fonctionnalités standard de Python et les bibliothèques intégrées pour le créer. 
+
+Je diviserais notre application en trois parties principales :
+
+
+1. logique et état
+
+Il s'agit de stocker et de modifier les informations relatives au cycle de vie actuel du programme.
+
+
+2. rendu
+
+Le module turtle a été utilisé pour rendre les données dérivées de l'état, telles que la position actuelle des disques ou la présence d'animations.
+
+
+3. Événements
+
+Pour toute interaction, nous devons recevoir des événements concernant les frappes de touches et la position de la souris, de sorte que l'état de l'application change en fonction de ces événements
+
+
+Je pense que notre code peut être assimilé au paradigme MVC. Puisqu'il comporte lui aussi trois composants principaux qui fonctionnent ensemble.
+
+
+Lorsqu'il s'agit de créer quelque chose à partir de zéro, il ne suffit pas de s'asseoir et de commencer à écrire du code.
+
+Tout d'abord, il faut établir un plan sur papier, décrire la tâche en pseudo-code, et le processus d'écriture du programme lui-même ne prend pas plus de 20 % du temps.
+
+
+Lors de la création du jeu, de nombreuses fonctionnalités de Python, telles que les classes personnalisées et les décorateurs, nous ont échappé. Cependant, en connaissant leur fonctionnement, nous avons pu recréer leur comportement nous-mêmes. 
+
+
+Le fait d'avoir divisé le code en plusieurs fichiers nous a beaucoup aidés à éviter la confusion lorsque nous travaillions avec de grandes quantités de code. Des connaissances élémentaires en mathématiques nous ont permis d'obtenir de belles animations de disques et d'étoiles sur l'écran d'accueil.
+
+
+La répartition des tâches en fonction du niveau de connaissances en programmation a permis à chacun de travailler et de contribuer à la création du jeu. 
+
+J'étais chargé de créer la base : logique de rendu, animations, interaction.
+
+Mon partenaire m'a aidé à écrire des algorithmes pour trouver des solutions et initialiser l'état de notre application.
+
+
+Je pense que notre jeu pourrait être amélioré en ajoutant du texte avec des informations sur le jeu en cours, mais c'est impossible étant donné le grand nombre de rendus par seconde, et le jeu commence à scintiller.
+
+
+Il serait également intéressant de faire un peu de refactoring de code en utilisant toutes les capacités du langage pour rendre le code plus clair et plus simple.
+
+
+Le code de ce jeu sera bientôt posté sur mon GitHub (AlexLovser) en accès public, afin que tout le monde puisse voir comment il fonctionne. 
+
+
+Aleksandr Tabolskii et Alaa Dib ont travaillé sur ce projet.
+
+Merci pour votre attention !
